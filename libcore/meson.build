@@ -1,5 +1,6 @@
-CORE_LIB = shared_library (
-    CORE_LIB_NAME,
+pantheon_files_core_name = 'pantheon-files-core'
+
+pantheon_files_core_files = files(
     'AbstractSidebar.vala',
     'AbstractSlot.vala',
     'Bookmark.vala',
@@ -32,20 +33,30 @@ CORE_LIB = shared_library (
     'marlin-file-changes-queue.c',
     'fm-list-model.c',
     'gof-file.c',
+)
 
+pantheon_files_core_library = shared_library (
+    pantheon_files_core_name,
+    pantheon_files_core_files,
     dependencies : [CORE_LIB_DEPS, C_CORE_DEP, OTHER_DEPS],
     install: true,
     install_dir: [true, true, true],
-    version: CORE_LIB_VER,
+    version: meson.project_version(),
     soversion: '0',
 )
 
-pkg = import ('pkgconfig')
-pkg.generate (
-    libraries: CORE_LIB,
+pantheon_files_core_dep = declare_dependency (
+    link_with: pantheon_files_core_library,
+    include_directories: include_directories('.'),
+    dependencies : [CORE_LIB_DEPS, C_CORE_DEP, OTHER_DEPS],
+)
+
+pantheon_files_core_pkgconfig = pkg.generate (
+    libraries: pantheon_files_core_library,
+    filebase: pantheon_files_core_name,
+    name: 'elementary Files Core Library',
     description: 'Core library io.elementary.files and io.elementary.filechooser',
-    filebase: CORE_LIB_NAME,
-    name: 'lib'+ OLD_NAME
+    version: meson.project_version(),
 )
 
 subdir ('tests')

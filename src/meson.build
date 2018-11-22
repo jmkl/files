@@ -1,5 +1,6 @@
 deps = [
-    CORE_LIB_DEPS,
+    pantheon_files_core_dep,
+    pantheon_files_widgets_dep,
     dependency ('dbus-glib-1'),
     dependency ('zeitgeist-2.0')
 ]
@@ -63,9 +64,8 @@ executable (
     'View/Widgets/TopMenu.vala',
 
     dependencies : [SRC_DEPS, C_CORE_DEP, MARLIN_DEP, OTHER_DEPS],
-    include_directories: [ROOT_INC, CORE_INC, WIDGET_INC],
+    include_directories: [ROOT_INC],
     install: true,
-    link_with: [CORE_LIB, WIDGET_LIB]
 )
 
 install_data (

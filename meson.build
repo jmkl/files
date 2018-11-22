@@ -1,8 +1,7 @@
-project ('io.elementary.files', 'vala', 'c', meson_version: '>= 0.42.0')
+project ('io.elementary.files', 'vala', 'c', meson_version: '>= 0.42.0', version: '0.3.6')
 
-PROJECT_VER = '0.3.6'
-CORE_LIB_VER = '0.3.6'
-WIDGET_LIB_VER = '0.3.6'
+pkg = import ('pkgconfig')
+
 DOMAIN = 'io.elementary.'
 SHORTNAME = 'files'
 OLD_NAME = 'pantheon-files'
@@ -88,7 +87,7 @@ C_CORE_DEP = declare_dependency (dependencies: [C_CORE_VAPI, GOF_FILE_DEP])
 
 config_data = configuration_data()
 config_data.set('plugin_dir', PLUGIN_DIR)
-config_data.set('version', PROJECT_VER)
+config_data.set('version', meson.project_version())
 config_data.set('ui_dir', UI_DIR)
 config_data.set('testdata_dir', join_paths(meson.source_root (), 'data', 'tests'))
 config_data.set('app_name', meson.project_name ())
